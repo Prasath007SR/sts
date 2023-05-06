@@ -1,6 +1,6 @@
 package com.instagram.demo.service;
 
-import java.util.List;
+import java.util.List;						
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -11,6 +11,8 @@ import org.springframework.stereotype.Service;
 
 import com.instagram.demo.dao.StudentRepositoty;
 import com.instagram.demo.model.student;
+
+import jakarta.transaction.Transactional;
 
 @Service
 public class InstaService {
@@ -63,4 +65,24 @@ public class InstaService {
 			}
 		}
 	}
+	
+	@Transactional
+	public List<student> get()
+	{
+		return rs.GetAll();
+	}
+	@Transactional
+	public int delete(String username)
+	{
+		return rs.DeleteItemByUsername(username);
+	}
+	@Transactional
+
+	 public int update(String name,int regno)
+
+	 {
+
+		 return rs.UpdateItemById(name,regno);
+
+	 }
 }

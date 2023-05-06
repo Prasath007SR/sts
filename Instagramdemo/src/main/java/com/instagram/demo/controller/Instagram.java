@@ -17,6 +17,8 @@ import com.instagram.demo.dao.StudentRepositoty;
 import com.instagram.demo.model.student;
 import com.instagram.demo.service.InstaService;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
+
 @RestController
 public class Instagram {
 
@@ -25,6 +27,8 @@ public class Instagram {
 	InstaService is;
 	@Autowired
 	StudentRepositoty rs;
+	@Tag(name="get",description="get data")
+	
 	
 	@GetMapping("/get")
 	public List<student>getAll(){
@@ -93,4 +97,37 @@ public class Instagram {
 		System.out.println(u.getUsername());
 		return is.checkLogin(u.getUsername(), u.getPassword());
 	}
+	
+	@DeleteMapping("/deleteStudentByName/{username}")
+	public String deleteStudentByName(@PathVariable String username)
+	{
+	int result=is.delete(username)	;
+	if(result >0)
+		return "Student record deleted";
+	else
+		return "Problem occured while deleting";
+	}
+	@GetMapping("/show")
+	public List<student>get()
+	{
+		return is.get();
+	}
+	@PutMapping("/update/{name}/{regno}")
+
+	public String update(@PathVariable String name,@PathVariable int regno)
+
+	{
+
+		int result=is.update(name,regno);
+
+		if(result>0)
+
+			return "Updated Successfully";
+
+		else
+
+			return "Problem occur while updating";
+
+	}
+	
 }
